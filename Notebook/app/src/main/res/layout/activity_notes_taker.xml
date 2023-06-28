@@ -17,13 +17,49 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize">
 
-        <ImageView
-            android:id="@+id/imageView_save"
-            android:background="@android:color/transparent"
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        </ImageView>
+            <ImageView
+                android:id="@+id/imageView_save"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_done"
+                android:padding="6dp"
+                android:background="@android:color/transparent"
+                android:layout_width="?actionBarSize"
+                android:layout_height="?actionBarSize">
+
+            </ImageView>
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/editText_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:textColorHint="@color/grey"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:singleLine="true">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter text"
+        android:textColorHint="@color/grey"
+        android:padding="8dp"
+        android:textStyle="normal"
+        android:textSize="18sp"
+        android:textColor="@color/black">
+
+    </EditText>
+
 
 </LinearLayout>
