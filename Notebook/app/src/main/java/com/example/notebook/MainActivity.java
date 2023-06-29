@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 
 import com.example.notebook.Adapter.NotesListAdapter;
 import com.example.notebook.DataBase.RoomDB;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     RoomDB database;
     List<Notes> notes = new ArrayList<>();
 
+    SearchView searchView_home;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_home);
         fab_add = findViewById(R.id.fab_add);
+
+        searchView_home = findViewById(R.id.searchView_home);
 
         database = RoomDB.getInstance(this);
         notes = database.mainDAO().getAll();
@@ -50,14 +55,51 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 101);
             }
         });
+
+        searchView_home.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter (newText);
+                return true;
+            }
+        });
 }
+
+    private void filter(String newText) {
+        List<Notes> filteredList = new ArrayList<>();
+        for (Notes singleNote : notes){
+            if (singleNote.getTitle().toLowerCase().contains(newText.toLowerCase())
+            || singleNote.getNotes().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(singleNote);
+
+            }
+        }
+        notesListAdapter.filterList(filteredList);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 101) {
-            if (resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 Notes new_notes = (Notes) data.getSerializableExtra("note");
                 database.mainDAO().insert(new_notes);
+                notes.clear();
+                notes.addAll(database.mainDAO().getAll());
+                notesListAdapter.notifyDataSetChanged();
+            }
+        }
+
+        if (requestCode == 102) {
+            if (resultCode == Activity.RESULT_OK){
+                Notes new_notes = (Notes) data.getSerializableExtra("note");
+                database.mainDAO().update(new_notes.getID(), new_notes.getTitle(), new_notes.getNotes());
                 notes.clear();
                 notes.addAll(database.mainDAO().getAll());
                 notesListAdapter.notifyDataSetChanged();
