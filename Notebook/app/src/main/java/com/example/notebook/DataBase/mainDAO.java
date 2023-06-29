@@ -26,4 +26,5 @@ public interface mainDAO {
     @Delete
     void delete (Notes notes);
 
+
 }

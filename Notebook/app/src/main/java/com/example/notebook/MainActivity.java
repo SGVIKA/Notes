@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.notebook.Adapter.NotesListAdapter;
 import com.example.notebook.DataBase.RoomDB;
@@ -22,7 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     RecyclerView recyclerView;
     FloatingActionButton fab_add;
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     List<Notes> notes = new ArrayList<>();
 
     SearchView searchView_home;
+
+    Notes selectedNote;
 
 
     @Override
@@ -125,7 +130,32 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLongClick(Notes notes, CardView cardView) {
-
+            selectedNote = new Notes();
+            selectedNote = notes;
+            showPopup(cardView);
         }
     };
+
+    private void showPopup(CardView cardView) {
+        PopupMenu popupMenu = new PopupMenu(this, cardView);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.deletet:
+                database.mainDAO().delete(selectedNote);
+                notes.remove(selectedNote);
+                notesListAdapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, "Note removed", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return false;
+        }
+
+    }
 }

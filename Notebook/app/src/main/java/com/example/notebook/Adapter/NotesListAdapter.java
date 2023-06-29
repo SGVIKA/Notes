@@ -47,13 +47,6 @@ public class NotesListAdapter extends RecyclerView.Adapter <NotesViewHolder>{
         holder.textView_date.setText(list.get(position).getDate());
         holder.textView_date.setSelected(true);
 
-        if (list.get(position).isPinned()) {
-            holder.imageView_pin.setImageResource(R.drawable.ic_pin);
-        }
-        else {
-            holder.imageView_pin.setImageResource(0);
-        }
-
         holder.notes_conteiner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +79,6 @@ class NotesViewHolder extends RecyclerView.ViewHolder {
 
     CardView notes_conteiner;
     TextView textView_title, textView_notes, textView_date;
-    ImageView imageView_pin;
 
     public NotesViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -95,6 +87,5 @@ class NotesViewHolder extends RecyclerView.ViewHolder {
         textView_title = itemView.findViewById(R.id.textView_title);
         textView_notes = itemView.findViewById(R.id.textView_notes);
         textView_date = itemView.findViewById(R.id.textView_date);
-        imageView_pin = itemView.findViewById(R.id.imageView_pin);
     }
 }

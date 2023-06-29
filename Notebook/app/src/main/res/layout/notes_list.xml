@@ -36,17 +36,6 @@
 
             </TextView>
 
-            <ImageView
-                android:id="@+id/imageView_pin"
-                android:src="@drawable/ic_pin"
-                android:layout_alignParentEnd="true"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:tint="@color/black"
-                android:layout_margin="8dp">
-
-            </ImageView>
-
         </RelativeLayout>
         
         <TextView

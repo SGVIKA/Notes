@@ -25,7 +25,8 @@
                 android:id="@+id/imageView_save"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_done"
-                android:padding="6dp"
+                android:padding="10dp"
+                android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
                 android:layout_width="?actionBarSize"
                 android:layout_height="?actionBarSize">
