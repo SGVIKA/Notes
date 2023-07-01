@@ -9,11 +9,11 @@
         android:icon="@drawable/ic_notes"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Notebook"
+        android:theme="@style/Theme.Notes"
         tools:targetApi="31">
         <activity
             android:name=".NotesTakerActivity"
-            android:theme="@style/Theme.Notebook.NoActionBar"
+            android:theme="@style/Theme.Notes.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
